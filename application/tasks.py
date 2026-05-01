@@ -9,9 +9,6 @@ indian_tz = pytz.timezone('Asia/Kolkata')
 
 import json
 
-
-
-
 @shared_task(ignore_result=True)
 def daily_reminder( subject):
     users = User.query.filter(User.roles.any(Role.name.in_(["user","creator"]))).all()
