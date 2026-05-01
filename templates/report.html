@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monthly Report - Geet mp3</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        h1, h2 {
+            margin-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        canvas {
+            max-width: 600px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Geet mp3 - Monthly Report</h1>
+
+    <h2>Top 5 Liked Songs</h2>
+    <canvas id="creator_name_vs_likes"></canvas>
+
+    
+
+    <h2>Tracks</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Singer</th>
+                <th>Music</th>
+                <th>Lyricist</th>
+                <th>Published Date</th>
+                <th>Likes</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for track in tracks %}
+            <tr>
+                <td>{{ track.name }}</td>
+                <td>{{ track.singer }}</td>
+                <td>{{ track.music }}</td>
+                <td>{{ track.lyricist }}</td>
+                <td>{{ track.published }}</td>
+                <td>{{track.likes}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Albums</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Published Date</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for album in albums %}
+            <tr>
+                <td>{{ album.title }}</td>
+                <td>{{ album.author }}</td>
+                <td>{{ album.published }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        let name_labels=JSON.parse({{name_labels| tojson}});
+        let song_like=JSON.parse({{song_like| tojson}}); 
+ 
+       
+        new Chart(document.getElementById("creator_name_vs_likes"), {
+                 type: "bar",
+                 data:
+                 {
+                     labels: name_labels,
+                     datasets: [{
+                         label: "Top 5 liked songs",
+                         
+                         data: song_like,
+                         fill: false,
+                         borderColor: "rgb(75, 192, 192)",
+                         lineTension: 0.1,
+                         backgroundColor: [
+                                    'rgba(255, 99, 132,0.7)',
+                                    'rgba(255, 159, 64, 0.7)',
+                                    'rgba(255, 205, 86, 0.7)',
+                                    'rgba(75, 192, 192, 0.7)',
+                                    'rgba(54, 162, 235, 0.7)',
+                                    'rgba(153, 102, 255, 0.7)',
+                                    'rgba(201, 203, 207, 0.7)',
+                                    'rgba(255, 99, 132, 0.7)',
+                                    'rgba(255, 159, 64, 0.7)',
+                                    'rgba(255, 205, 86, 0.7)'
+                                    ],
+                                    borderColor: [
+                                    'rgb(255, 99, 132)',
+                                    'rgb(255, 159, 64)',
+                                    'rgb(255, 205, 86)',
+                                    'rgb(75, 192, 192)',
+                                    'rgb(54, 162, 235)',
+                                    'rgb(153, 102, 255)',
+                                    'rgb(201, 203, 207)',
+                                    'rgb(255, 99, 132)',
+                                    'rgb(255, 159, 64)',
+                                    'rgb(255, 205, 86)'
+                                    ],
+                                    borderWidth: 1,
+                                    hoverBorderColor: "black",
+                                    hoverBorderWidth: 2,
+                                    // hoverBackgroundColor: 'rgba(154, 245, 140)',
+                                    pointHoverRadius: 5
+                     }]
+                 },
+                 options: {indexAxis: 'y',
+                }
+             });
+    </script>
+</body>
+</html>
