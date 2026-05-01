@@ -7,7 +7,6 @@ SMTP_PORT = 1025
 SENDER_EMAIL = 'admin@gmail.com'
 SENDER_PASSWORD = ''
 
-
 def send_message(to, subject, content_body):
     msg = MIMEMultipart()
     msg["To"] = to
